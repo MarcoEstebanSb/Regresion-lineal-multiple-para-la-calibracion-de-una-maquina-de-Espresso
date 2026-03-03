@@ -1,0 +1,233 @@
+#ANÁLISIS SENSORIAL DEL CAFÉ
+
+library(readxl)
+
+file.choose()
+
+datos<- read_xlsx("")
+View(datos)
+attach(datos)
+
+"Creación de la variable dependiente:
+      CALIDAD DE LA ACIDEZ DEL ESPRESSO"
+
+acidmodel <- lm(Acidez~Hora_del_dia+Gramos_de_Cafe+Mililitros_de_Espresso+Tiempo_de_Extraccion)
+
+summary(acidmodel)
+
+"Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)             6.67741    2.40016   2.782 0.038807 *  
+Hora_del_dia            0.05373    0.02258   2.380 0.063181 .  
+Gramos_de_Cafe          0.18322    0.13923   1.316 0.245285    
+Mililitros_de_Espresso -0.19927    0.01886 -10.567 0.000131 ***
+Tiempo_de_Extraccion    0.02222    0.01248   1.781 0.134939 "
+
+
+library(ggplot2)
+
+# Gráfico de la relación entre Hora del día y la Calidad de la Acidez del Espresso
+ggplot(datos, aes(x = Hora_del_dia, y = Acidez)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Relación entre Hora del día y la Calidad de la acidez del Espresso", 
+       x = "Hora del día", y = "Calidad de la Acidez") +
+  theme_minimal()
+
+"La calidad de la acidez y su relación con la hora del día, va bajando conforme pasan las horas, sin embargo el
+resumen del modelo propone que su relación no es significativa"
+
+
+
+# Gráfico de la relación entre los Gramos de café y la Calidad de la Acidez del Espresso
+ggplot(datos, aes(x = Gramos_de_Cafe, y = Acidez)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "green") +
+  labs(title = "Relación entre los Gramos de café y la Calidad de la Acidez del Espresso", 
+       x = "Gramos de café", y = "Calidad de la Acidez") +
+  theme_minimal()
+
+"La calidad de la acidez y su relación con el gramaje del café muestra una tendencia a bajar conforme aumenta el
+gramaje, sin embargo el resumen del modelo propone que su relación no es significativa por lo que interpretamos que 
+con la misma cantidad de gramaje se puede obtener una buena o una mala calidad de la acidez en el espresso"
+
+
+
+# Gráfico de la relación entre los Mililitros de espresso y la Calidad de la acidez del Espresso
+ggplot(datos, aes(x = Mililitros_de_Espresso, y = Acidez)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red") +
+  labs(title = "Relación entre los Mililitros de espresso y la Calidad de la acidez del Espresso", 
+       x = "Mililitros de espresso", y = "Calidad de la Acidez") +
+  theme_minimal()
+
+"La calidad de la acidez del espresso y su relación con la cantidad de mililitros extraidos muestra una tendencia a
+bajar conforme aumentan los mililitros de espresso, también el modelo propone que la relación tiene un nivel de
+significancia alto por lo que la acidez está directamente relacionado con los mililitros extraidos"
+
+
+# Gráfico de la relación entre el Tiempo de extracción y la Calidad de la Acidez del Espresso
+ggplot(datos, aes(x = Tiempo_de_Extraccion, y = Acidez)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "purple") +
+  labs(title = "Relación entre el Tiempo de extracción y la Calidad de la Acidez del Espresso", 
+       x = "Tiempo de extracción", y = "Calidad de la Acidez") +
+  theme_minimal()
+
+
+"La relación entre la calidad de la acidez del Espresso y el tiempo de extracción muestra una tendencia a bajar 
+y es la segunda variable con más significancia por lo que hay que prestar especial atención al tiempo de extracción"
+
+
+
+
+
+"Creación de la variable dependiente:
+      CALIDAD DEL AMARGOR DEL ESPRESSO"
+
+amarmodel <- lm(Amargor~Hora_del_dia+Gramos_de_Cafe+Mililitros_de_Espresso+Tiempo_de_Extraccion)
+
+summary(amarmodel)
+
+"Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)
+(Intercept)            -3.92606    7.16418  -0.548    0.607
+Hora_del_dia            0.12529    0.06739   1.859    0.122
+Gramos_de_Cafe          0.12795    0.41559   0.308    0.771
+Mililitros_de_Espresso  0.03606    0.05629   0.641    0.550
+Tiempo_de_Extraccion    0.04669    0.03724   1.254    0.265"
+
+
+
+
+# Gráfico de la relación entre Hora del día y la Calidad del Amargor del Espresso
+ggplot(datos, aes(x = Hora_del_dia, y = Amargor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Relación entre Hora del día y la Calidad del amargor del Espresso", 
+       x = "Hora del día", y = "Calidad del Amargor") +
+  theme_minimal()
+
+"La calidad del amargor y su relación con la hora del día, va subiendo conforme pasan las horas, sin embargo el
+resumen del modelo propone que su relación no es significativa"
+
+
+
+# Gráfico de la relación entre los Gramos de café y la Calidad del Amargor del Espresso
+ggplot(datos, aes(x = Gramos_de_Cafe, y = Amargor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "green") +
+  labs(title = "Relación entre los Gramos de café y la Calidad del Amargor del Espresso", 
+       x = "Gramos de café", y = "Calidad del Amargor") +
+  theme_minimal()
+
+"La calidad del amargor del Espresso muestra una tendencia a subir conforme aumenta el gramaje del café, sin
+embargo el modelo no propone significancia alguna"
+
+
+
+# Gráfico de la relación entre los Mililitros de Espresso y la Calidad del Amargor del Espresso
+ggplot(datos, aes(x = Mililitros_de_Espresso, y = Amargor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red") +
+  labs(title = "Relación entre los Mililitros de espresso y la Calidad del Amargor del Espresso", 
+       x = "Mililitros de espresso", y = "Calidad del Amargor") +
+  theme_minimal()
+
+"La calidad del Amargor del Espresso y su relación con los mililitros extraídos muestra una tendencia a subir 
+conforme aumentan los mililitros extraídos, sin embargo, el modelo no propone un nivel de significancia alto
+por lo que no tiene una relación directa"
+
+
+# Gráfico de la relación entre el Tiempo de extracción y la Calidad del Amargor del Espresso
+ggplot(datos, aes(x = Tiempo_de_Extraccion, y = Amargor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "purple") +
+  labs(title = "Relación entre el Tiempo de extracción y la Calidad del Amargor del Espresso", 
+       x = "Tiempo de extracción", y = "Calidad del Amargor") +
+  theme_minimal()
+
+
+"La calidad del amargor y su relación con el tiempo de extracción muestra una tendencia a subur en cuanto 
+aumenta el tiempo de extracción, si bien, está variable no muestra significancia estadística, es las segunda con
+más significancia después de la hora del día, pero esta última variable no se puede controlar, por lo que nuestra
+prioridad para medir el amargor se centra en el tiempo de extracción"
+
+
+
+
+
+
+
+
+"Creación de la variable dependiente:
+      CALIDAD DEL DULZOR DEL ESPRESSO"
+
+dulmodel <- lm(Dulzor~Hora_del_dia+Gramos_de_Cafe+Mililitros_de_Espresso+Tiempo_de_Extraccion)
+
+summary(dulmodel)
+
+"Coefficients:
+                         Estimate Std. Error t value Pr(>|t|)  
+(Intercept)            -19.461472   8.364552  -2.327   0.0675 .
+Hora_del_dia            -0.033091   0.078683  -0.421   0.6915  
+Gramos_de_Cafe           1.277858   0.485222   2.634   0.0463 *
+Mililitros_de_Espresso  -0.002033   0.065719  -0.031   0.9765  
+Tiempo_de_Extraccion    -0.051860   0.043476  -1.193   0.2864"
+
+
+
+
+# Gráfico de la relación entre Hora del día y la Calidad del Dulzor del Espresso
+ggplot(datos, aes(x = Hora_del_dia, y = Dulzor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Relación entre Hora del día y la Calidad del Dulzor del Espresso", 
+       x = "Hora del día", y = "Calidad del Dulzor") +
+  theme_minimal()
+
+"La calidad del Dulzor no tiene una relación directa con la hora del día en la que se realiza la extracción,
+de hecho, el gráfico no muestra ninguna tendencia, se mantiene constante a lo largo del día, por lo que la 
+hora del día no es una variable que afecte directamente el dulzor de nuestro espresso"
+
+
+
+# Gráfico de la relación entre los Gramos de café y la Calidad del Dulzor del Espresso
+ggplot(datos, aes(x = Gramos_de_Cafe, y = Dulzor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "green") +
+  labs(title = "Relación entre los Gramos de café y la Calidad del Dulzor del Espresso", 
+       x = "Gramos de café", y = "Calidad del Dulzor") +
+  theme_minimal()
+
+"La calidad del dulzor de nuestro espresso está directamente relacionado con los gramos del café usados
+por lo que si usamos más gramos de café la calidad del dulzor aumenta, de igual forma el modelo propone que 
+el gramaje tiene significancia estadística, por lo que afecta directamente nuestra calidad del dulzor"
+
+
+
+# Gráfico de la relación entre los Mililitros de Espresso y la Calidad del Dulzor del Espresso
+ggplot(datos, aes(x = Mililitros_de_Espresso, y = Dulzor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red") +
+  labs(title = "Relación entre los Mililitros de espresso y la Calidad del Dulzor del Espresso", 
+       x = "Mililitros de espresso", y = "Calidad del Dulzor") +
+  theme_minimal()
+
+"La calidad del dulzor del espresso no está directamente relacionado con los mililitros extraídos, nuestra
+gráfica no muestra ninguna tendencia por lo que se mantiene constante a pesar de los mililitros extraídos"
+
+
+# Gráfico de la relación entre el Tiempo de extracción y la Calidad del Dulzor del Espresso
+ggplot(datos, aes(x = Tiempo_de_Extraccion, y = Dulzor)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "purple") +
+  labs(title = "Relación entre el Tiempo de extracción y la Calidad del Dulzor del Espresso", 
+       x = "Tiempo de extracción", y = "Calidad del Dulzor") +
+  theme_minimal()
+
+
+"La calidad del dulzor no es afectada por el tiempo de extracción, nuestra gráfica no muestra una tendencia,
+eso nos da a entender que la calidad del dulzor se mantiene constante a pesar del tiempo de extracción por
+lo que nuestra variable no afecta directamente a nuestra calidad de dulzor en el espresso"
+
